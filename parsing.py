@@ -6,6 +6,7 @@ import telegram
 import threading
 import time
 import json
+import glob
 from telegram import InputMediaPhoto
 
 TOKEN = '6380395533:AAE7POJ1Jznc7nSbwjJOGAyiH9bzPCde_Kc'
@@ -17,7 +18,30 @@ url = "https://cre-api.kufar.by/ads-search/v1/engine/v1/search/rendered-paginate
 jparams = '{"cat":"2010","cur":"BYR","sort":"lst.d","size":"200"}'
 payload = json.loads(jparams)
 
-
+arrIds = []
+global jsonStr
+def writeIdsFile():
+    for file in glob.glob('./*.txt'):
+        arrIds.append(file.replace('.txt', '').replace('.\\', ''))
+    jsonStr = json.dumps(arrIds)
+    with open("ids.json", 'w') as f:
+        f.write(jsonStr)
+def addIdFile(id):
+    ids = readIdsFile()
+    ids.append(id)
+    jsonStr = json.dumps(ids)
+    with open("ids.json", 'w') as f:
+        f.write(jsonStr)
+def readIdsFile():
+    with open('ids.json', 'r') as fcc_file:
+        fcc_data = json.load(fcc_file)
+    return fcc_data
+def findIdFile(id):
+    file = readIdsFile()
+    if id in file:
+        return 1
+    else:
+        return 0
 def get_photo(link):
   # парсинг фотографий и описания
   photo_link = []
@@ -101,7 +125,7 @@ def main():
         price = int(ads['price_usd']) / 100
       else:
         price = "Договорная"
-      check = find_file(str(idK))
+      check = findIdFile(str(idK))
       print(names)
       file = f'Объявление: {names}\nЦена: {price}\n{params}\n'
       print(file)
@@ -118,8 +142,7 @@ def main():
             if number == 4:
               break
         #print(media_group)
-        with open(str(idK) + ".txt", 'w') as f:
-            f.write(file)
+        addIdFile(str(idK))
         if len(media_group):
           try:
             bot.send_media_group(chat_id=chat_id, media=media_group)
