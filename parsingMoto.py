@@ -10,12 +10,12 @@ import glob
 from telegram import InputMediaPhoto
 
 TOKEN = '6380395533:AAE7POJ1Jznc7nSbwjJOGAyiH9bzPCde_Kc'
-chat_id = "-1001924241753"
+chat_id = "244368533"
 #keysearch = "сноуборд"
 url = "https://cre-api.kufar.by/ads-search/v1/engine/v1/search/rendered-paginated"
 #payload = {"cat":"1010", "typ": "let", "rng": "6", "ar": "18", "prc": "r:20000,35000", "cur": "BYR", "rms": }
 #jparams = '{"cat":"1010","typ":"let","rgn":"6","ar":"18","prc":"r:20000,35000","cur":"BYR","rms":"v.or:1,2","rnt":"1","sort":"lst.d","size":"42"}'
-jparams = '{"cat":"2010","cur":"BYR","sort":"lst.d","size":"200"}'
+jparams = '{"cat":"2010","rgn":"2","ar":"5","cbnd2":"category_2010.mark_volkswagen","cmdl2":"category_2010.mark_volkswagen.model_golf","cgen2":"category_2010.mark_volkswagen.model_golf.generation_golf_ii3962","cur":"BYR","sort":"lst.d","size":"1000"}'
 payload = json.loads(jparams)
 
 arrIds = []
@@ -24,16 +24,16 @@ def writeIdsFile():
     for file in glob.glob('./*.txt'):
         arrIds.append(file.replace('.txt', '').replace('.\\', ''))
     jsonStr = json.dumps(arrIds)
-    with open("ids.json", 'w') as f:
+    with open("ids2.json", 'w') as f:
         f.write(jsonStr)
 def addIdFile(id):
     ids = readIdsFile()
     ids.append(id)
     jsonStr = json.dumps(ids)
-    with open("ids.json", 'w') as f:
+    with open("ids2.json", 'w') as f:
         f.write(jsonStr)
 def readIdsFile():
-    with open('ids.json', 'r') as fcc_file:
+    with open('ids2.json', 'r') as fcc_file:
         fcc_data = json.load(fcc_file)
     return fcc_data
 def findIdFile(id):
@@ -95,7 +95,9 @@ def find_file(idK):
 def main():
 
   url = "https://cre-api.kufar.by/ads-search/v1/engine/v1/search/rendered-paginated"
-  jparams = '{"cat":"2010","cur":"BYR","sort":"lst.d","size":"20"}'
+  #jparams = '{"cat":"2010","rgn":"2","ar":"5","cbnd2":"category_2010.mark_volkswagen","cmdl2":"category_2010.mark_volkswagen.model_golf","cgen2":"category_2010.mark_volkswagen.model_golf.generation_golf_ii3962","cur":"BYR","sort":"lst.d","size":"20"}'
+  #jparams = '{"cat":"2010","rgn":"2","cbnd2":"category_2010.mark_volkswagen","cmdl2":"category_2010.mark_volkswagen.model_golf","cgen2":"category_2010.mark_volkswagen.model_golf.generation_golf_ii3962","cur":"BYR","sort":"lst.d","size":"20"}'
+  jparams = '{"cat":"2010","rgn":"2","cbnd2":"category_2010.mark_volkswagen","rgd":"r:1983,1992","sort":"lst.d","size":"20"}'
   payload = json.loads(jparams)
   try:
     r = requests.get(url, params=payload)
