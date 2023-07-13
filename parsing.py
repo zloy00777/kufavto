@@ -58,7 +58,7 @@ def get_photo(link):
     #print(soup_photo)
     for photo in soup_find_all_photo:
       if photo["src"] not in photo_link:
-        print(photo["src"])
+        #print(photo["src"])
         photo_link.append(photo["src"])
     description = soup_photo.find("div", itemprop="description").text
     if len(description) > 512:
