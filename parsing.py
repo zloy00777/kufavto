@@ -50,10 +50,15 @@ def get_photo(link):
   description = 'Описание не найдено'
   a = requests.get(link)
   try:
+
     soup_photo = bs(a.content, "html.parser")
-    soup_find_all_photo = soup_photo.findAll("img", class_="styles_slide__image__YIPad", limit=9)
+    #print(soup_photo)
+    soup_find_all = soup_photo.find("div", class_="swiper-zoom-container")
+    soup_find_all_photo = soup_find_all.findAll("img", limit=9)
+    #print(soup_photo)
     for photo in soup_find_all_photo:
       if photo["src"] not in photo_link:
+        print(photo["src"])
         photo_link.append(photo["src"])
     description = soup_photo.find("div", itemprop="description").text
     if len(description) > 512:
@@ -158,6 +163,7 @@ def main():
         else:
           bot.send_message(text=file + link, chat_id=chat_id)
           print(u'отправлено с фото')
+        print(link)
         time.sleep(3)
         #bot.send_message(chat_id, f'Объявление: {names}, Цена: ${price} , {link}')
         #else:
