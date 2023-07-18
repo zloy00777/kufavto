@@ -105,7 +105,7 @@ def main():
   url = "https://cre-api.kufar.by/ads-search/v1/engine/v1/search/rendered-paginated"
   #jparams = '{"cat":"2010","rgn":"2","ar":"5","cbnd2":"category_2010.mark_volkswagen","cmdl2":"category_2010.mark_volkswagen.model_golf","cgen2":"category_2010.mark_volkswagen.model_golf.generation_golf_ii3962","cur":"BYR","sort":"lst.d","size":"20"}'
   #jparams = '{"cat":"2010","rgn":"2","cbnd2":"category_2010.mark_volkswagen","cmdl2":"category_2010.mark_volkswagen.model_golf","cgen2":"category_2010.mark_volkswagen.model_golf.generation_golf_ii3962","cur":"BYR","sort":"lst.d","size":"20"}'
-  jparams = '{"cat":"2010","rgn":"2","cbnd2":"category_2010.mark_volkswagen","rgd":"r:1983,1992","sort":"lst.d","size":"20"}'
+  jparams = '{"cat":"1030","rgn":"2","sort":"lst.d","size":"20"}'
   payload = json.loads(jparams)
   try:
     r = requests.get(url, params=payload)

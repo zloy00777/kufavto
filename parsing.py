@@ -100,7 +100,7 @@ def find_file(idK):
 def main():
 
   url = "https://cre-api.kufar.by/ads-search/v1/engine/v1/search/rendered-paginated"
-  jparams = '{"cat":"2010","cur":"BYR","sort":"lst.d","size":"20"}'
+  jparams = '{"cat":"2010","prc":"r:0,2000","cur":"USD","sort":"lst.d","size":"20"}'
   payload = json.loads(jparams)
   try:
     r = requests.get(url, params=payload)
